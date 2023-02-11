@@ -1,3 +1,23 @@
+use std::collections::HashMap;
+
+fn main() {
+    io::get_v::<u32>().iter().for_each(|_| {
+        io::get_vec::<i32>()
+            .iter()
+            .for_each(|v| {
+                let mut hash_v = v.clone();
+                hash_v.sort();
+                hash_v.dedup();
+                let hash: HashMap<_, _> = hash_v.into_iter()
+                    .zip(0..)
+                    .collect();
+
+                let ret: Vec<_> = v.iter().flat_map(|x| hash.get(x)).collect();
+                io::print_vec_as_line(&ret);
+            });
+    });
+}
+
 #[allow(dead_code)]
 mod io {
     use std::fmt;
